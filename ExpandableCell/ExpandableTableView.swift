@@ -9,13 +9,19 @@
 import UIKit
 
 open class ExpandableTableView: UITableView {
+    
+    @objc
     public var animation: UITableView.RowAnimation = .top
+    
+    @objc
     public var expansionStyle: ExpandableTableView.ExpansionStyle = .multi
+    
     public var autoReleaseDelegate: Bool = true
     public var autoRemoveSelection: Bool = true
     fileprivate var expandableProcessor = ExpandableProcessor()
     fileprivate var formerIndexPath: IndexPath?
 
+    @objc
     public var expandableDelegate: ExpandableDelegate? {
         didSet {
             self.dataSource = self
@@ -32,10 +38,11 @@ open class ExpandableTableView: UITableView {
 }
 
 extension ExpandableTableView {
-    public enum ExpansionStyle {
-        case multi
-        case single
-        case singlePerSection
+    @objc
+    public enum ExpansionStyle : Int{
+        case multi = 0
+        case single = 1
+        case singlePerSection = 2
     }
 }
 

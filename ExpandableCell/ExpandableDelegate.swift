@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc
 public protocol ExpandableDelegate: UIScrollViewDelegate {
 
     // MARK: Required Methods

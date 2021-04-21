@@ -8,7 +8,8 @@
 
 import Foundation
 
-public enum ExpandableStyle {
-    case normal
-    case closeAndOpen
+@objc
+public enum ExpandableStyle : Int {
+    case normal = 0
+    case closeAndOpen = 1
 }
