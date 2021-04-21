@@ -9,8 +9,19 @@
 import UIKit
 
 open class ExpandableCell: UITableViewCell {
+    @objc
     open var arrowImageView: UIImageView!
+    
+    @objc
     open var rightMargin: CGFloat = 16
+    
+    @objc
+    open var initiallyExpanded: Bool = false
+    
+    @objc
+    open var selectable: Bool = false
+    
+    @objc
     open var highlightAnimation = HighlightAnimation.animated
     private var isOpen = false
     private var initialExpansionAllowed = true
@@ -46,6 +57,7 @@ open class ExpandableCell: UITableViewCell {
         arrowImageView.frame = CGRect(x: width - rightMargin, y: (height - 11)/2, width: 22, height: 11)
     }
 
+    @objc
     func open() {
         self.isOpen = true
         self.initialExpansionAllowed = false
@@ -56,6 +68,7 @@ open class ExpandableCell: UITableViewCell {
         }
     }
 
+    @objc
     func close() {
         self.isOpen = false
         if highlightAnimation == .animated {
@@ -69,20 +82,24 @@ open class ExpandableCell: UITableViewCell {
         return self.initialExpansionAllowed && self.isInitiallyExpanded()
     }
 
+    @objc
     open func isExpanded() -> Bool {
         return isOpen
     }
     
+    @objc
     open func isInitiallyExpanded() -> Bool {
-        return false
+        return initiallyExpanded
     }
     
+    @objc
     open func isSelectable() -> Bool {
-        return false
+        return selectable
     }
 }
 
-public enum HighlightAnimation {
-    case animated
-    case none
+@objc
+public enum HighlightAnimation : Int {
+    case animated = 0
+    case none = 1
 }

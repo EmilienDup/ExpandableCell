@@ -229,6 +229,8 @@ extension ExpandableTableView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: Optional methods
 extension ExpandableTableView {
+    
+    @objc
 	public func openAll() {
 		guard let delegate = expandableDelegate else { return }
 		
@@ -253,6 +255,7 @@ extension ExpandableTableView {
 		}
 	}
     
+    @objc
     func openAllInitiallyExpanded() {
         guard let delegate = expandableDelegate else { return }
 
@@ -276,6 +279,7 @@ extension ExpandableTableView {
         }
     }
 	
+    @objc
     public func open(at indexPath: IndexPath) {
 		guard let delegate = expandableDelegate else { return }
 		
@@ -285,6 +289,7 @@ extension ExpandableTableView {
 		}
 	}
     
+    @objc
     public func reloadExpandableExpandedCells(at indexPaths: [IndexPath]) {
         guard let delegate = expandableDelegate else { return }
 
@@ -297,6 +302,7 @@ extension ExpandableTableView {
         self.reloadExpandableExpandedCells(originalCells)
     }
     
+    @objc
     public func reloadExpandableExpandedCells(_ cells: [ExpandableCell]) {
         cells.forEach { (cell) in
             if let currentIndexPath = self.indexPath(for: cell) {
@@ -310,14 +316,17 @@ extension ExpandableTableView {
         }
     }
 
+    @objc
     public func closeAll() {
         _ = closeAllIndexPaths()
     }
     
+    @objc
     public func closeAllInSection(_ section: Int) {
         _ = closeAllIndexPathsInSection(section)
     }
     
+    @objc
     public func closeAllIndexPathsInSection(_ section: Int) -> [IndexPath] {
         let allIndexPaths = expandableProcessor.deleteAllIndexPathsInSection(section)
         let expandedIndexPaths = allIndexPaths.expandedIndexPaths
@@ -333,6 +342,7 @@ extension ExpandableTableView {
         return indexPaths
     }
     
+    @objc
     public func close(at indexPath: IndexPath) {
         guard let cell = self.cellForRow(at: indexPath) as? ExpandableCell else { return }
         if cell.isExpanded() {
@@ -353,6 +363,7 @@ extension ExpandableTableView {
         super.reloadData()
     }
     
+    @objc
     public func closeAllIndexPaths() -> [IndexPath] {
         let allIndexPaths = expandableProcessor.deleteAllIndexPaths()
         let expandedIndexPaths = allIndexPaths.expandedIndexPaths
