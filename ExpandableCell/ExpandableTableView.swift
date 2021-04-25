@@ -16,8 +16,12 @@ open class ExpandableTableView: UITableView {
     @objc
     public var expansionStyle: ExpandableTableView.ExpansionStyle = .multi
     
+    @objc
     public var autoReleaseDelegate: Bool = true
+    
+    @objc
     public var autoRemoveSelection: Bool = true
+    
     fileprivate var expandableProcessor = ExpandableProcessor()
     fileprivate var formerIndexPath: IndexPath?
 
@@ -147,7 +151,14 @@ extension ExpandableTableView: UITableViewDataSource, UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let delegate = expandableDelegate else { return 0 }
-        return delegate.expandableTableView(self, numberOfRowsInSection: section) + expandableProcessor.numberOfExpandedRowsInSection(section: section)
+        
+        let numberOfRowsInSection = delegate.expandableTableView(self, numberOfRowsInSection: section);
+        
+        if (numberOfRowsInSection == 0) {
+            return 0;
+        }
+        
+        return numberOfRowsInSection + expandableProcessor.numberOfExpandedRowsInSection(section: section)
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
