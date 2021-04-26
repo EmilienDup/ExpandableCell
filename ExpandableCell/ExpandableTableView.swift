@@ -155,6 +155,7 @@ extension ExpandableTableView: UITableViewDataSource, UITableViewDelegate {
         let numberOfRowsInSection = delegate.expandableTableView(self, numberOfRowsInSection: section);
         
         if (numberOfRowsInSection == 0) {
+            _ = self.expandableProcessor.deleteAllIndexPathsInSection(section);
             return 0;
         }
         
@@ -289,7 +290,12 @@ extension ExpandableTableView {
             open(at: indexPath)
         }
     }
-	
+    
+    @objc
+    public func isExpandedCell(at indexPath: IndexPath) -> Bool {
+        return expandableProcessor.isExpandedCell(at: indexPath).isExpandedCell
+    }
+    
     @objc
     public func open(at indexPath: IndexPath) {
 		guard let delegate = expandableDelegate else { return }

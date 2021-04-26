@@ -67,6 +67,16 @@ open class ExpandableCell: UITableViewCell {
             }
         }
     }
+    
+    @objc
+    func openWithoutAnimation() {
+        guard !self.isOpen else {
+            return
+        }
+        
+        self.isOpen = true
+        self.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
+    }
 
     @objc
     func close() {
@@ -76,6 +86,16 @@ open class ExpandableCell: UITableViewCell {
                 self?.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
             }
         }
+    }
+    
+    @objc
+    func closeWithoutAnimation() {
+        guard self.isOpen else {
+            return
+        }
+        
+        self.isOpen = false
+        self.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
     }
     
     func isInitiallyExpandedInternal() -> Bool {
