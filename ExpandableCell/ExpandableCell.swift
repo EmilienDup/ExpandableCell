@@ -9,26 +9,18 @@
 import UIKit
 
 open class ExpandableCell: UITableViewCell {
-    @objc
-    open var arrowImageView: UIImageView!
     
-    @objc
-    open var rightMargin: CGFloat = 16
-    
-    @objc
-    open var initiallyExpanded: Bool = false
-    
-    @objc
-    open var selectable: Bool = false
-    
-    @objc
-    open var highlightAnimation = HighlightAnimation.animated
-    private var isOpen = false
-    private var initialExpansionAllowed = true
+    private var _arrowImageView : UIImageView!
+    private var _rightMargin: CGFloat = 16
+    private var _highlightAnimation = HighlightAnimation.animated
+    private var _isOpen = false
+    private var _initialExpansionAllowed = true
+    private var _isInitiallyExpanded = false
+    private var _isSelectable = false
 
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         initView()
     }
 
@@ -43,78 +35,102 @@ open class ExpandableCell: UITableViewCell {
     }
 
     func initView() {
-        arrowImageView = UIImageView()
-        arrowImageView.image = UIImage(named: "expandableCell_arrow", in: Bundle(for: ExpandableCell.self), compatibleWith: nil)
-        self.contentView.addSubview(arrowImageView)
+        self._arrowImageView = UIImageView();
+        
+        self._arrowImageView.image = UIImage(named: "expandableCell_arrow", in: Bundle(for: ExpandableCell.self), compatibleWith: nil)
+        self.contentView.addSubview(self._arrowImageView)
     }
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         let width = self.bounds.width
         let height = self.bounds.height
-
-        arrowImageView.frame = CGRect(x: width - rightMargin, y: (height - 11)/2, width: 22, height: 11)
+        self._arrowImageView.frame = CGRect(x: width - self._rightMargin, y: (height - 11)/2, width: 22, height: 11)
     }
 
     @objc
     func open() {
-        self.isOpen = true
-        self.initialExpansionAllowed = false
-        if highlightAnimation == .animated {
+        self._isOpen = true
+        self._initialExpansionAllowed = false
+        
+        if self._highlightAnimation == .animated {
             UIView.animate(withDuration: 0.3) {[weak self] in
-                self?.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
+                self?._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
             }
         }
     }
     
     @objc
     func openWithoutAnimation() {
-        guard !self.isOpen else {
+        guard !self._isOpen else {
             return
         }
         
-        self.isOpen = true
-        self.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
+        self._isOpen = true
+        self._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
     }
 
     @objc
     func close() {
-        self.isOpen = false
-        if highlightAnimation == .animated {
+        self._isOpen = false
+        
+        if self._highlightAnimation == .animated {
             UIView.animate(withDuration: 0.3) {[weak self] in
-                self?.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
+                self?._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
             }
         }
     }
     
     @objc
     func closeWithoutAnimation() {
-        guard self.isOpen else {
+        guard self._isOpen else {
             return
         }
         
-        self.isOpen = false
-        self.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
+        self._isOpen = false
+        self._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
     }
     
     func isInitiallyExpandedInternal() -> Bool {
-        return self.initialExpansionAllowed && self.isInitiallyExpanded()
+        return self._initialExpansionAllowed && self._isInitiallyExpanded
     }
 
-    @objc
-    open func isExpanded() -> Bool {
-        return isOpen
+    func isExpanded() -> Bool {
+        return self._isOpen
+    }
+    
+    func isInitiallyExpanded() -> Bool {
+        return self._isInitiallyExpanded
+    }
+    
+    func isSelectable() -> Bool {
+        return self._isSelectable
     }
     
     @objc
-    open func isInitiallyExpanded() -> Bool {
-        return initiallyExpanded
+    public func setIsInitiallyExpanded(_ isInitiallyExpanded: Bool){
+        self._isInitiallyExpanded = isInitiallyExpanded
     }
     
     @objc
-    open func isSelectable() -> Bool {
-        return selectable
+    public func setIsSelectable(_ isSelectable: Bool){
+        self._isSelectable = isSelectable
+    }
+    
+    @objc
+    public func setRightMargin(_ margin: CGFloat){
+        self._rightMargin = margin
+    }
+    
+    @objc
+    public func seHighlightAnimation(_ animation: HighlightAnimation){
+        self._highlightAnimation = animation
+    }
+    
+    @objc
+    public func getArrowImageView() -> UIImageView{
+        return self._arrowImageView!
     }
 }
 
