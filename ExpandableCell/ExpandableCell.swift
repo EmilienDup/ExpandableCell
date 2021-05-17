@@ -96,6 +96,7 @@ open class ExpandableCell: UITableViewCell {
         return self._initialExpansionAllowed && self._isInitiallyExpanded
     }
 
+    @objc
     func isExpanded() -> Bool {
         return self._isOpen
     }
