@@ -9,7 +9,7 @@
 import Foundation
 
 @objc
-public enum ExpandableStyle : Int {
+public enum CellExpandableStyle : Int {
     case normal = 0
     case closeAndOpen = 1
 }

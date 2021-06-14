@@ -14,7 +14,7 @@ open class ExpandableTableView: UITableView {
     public var animation: UITableView.RowAnimation = .top
     
     @objc
-    public var expansionStyle: ExpandableTableView.ExpansionStyle = .multi
+    public var expansionStyle: ExpandableTableView.TableViewExpansionStyle = .multi
     
     @objc
     public var autoReleaseDelegate: Bool = true
@@ -43,7 +43,7 @@ open class ExpandableTableView: UITableView {
 
 extension ExpandableTableView {
     @objc
-    public enum ExpansionStyle : Int{
+    public enum TableViewExpansionStyle : Int{
         case multi = 0
         case single = 1
         case singlePerSection = 2
