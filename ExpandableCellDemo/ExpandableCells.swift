@@ -20,20 +20,17 @@ class ExpandableCell2: ExpandableCell {
 class ExpandableSelectableCell2: ExpandableCell {
     static let ID = "ExpandableSelectableCell2"
 
-    override func isSelectable() -> Bool {
-        return true
+    override func awakeFromNib() {
+        self.setIsSelectable(true)
     }
 }
 
 class ExpandableInitiallyExpanded: ExpandableCell {
     static let ID = "InitiallyExpandedExpandableCell"
     
-    override func isSelectable() -> Bool {
-        return true
-    }
-    
-    override func isInitiallyExpanded() -> Bool {
-        return true
+    override func awakeFromNib() {
+        self.setIsSelectable(true)
+        self.setIsInitiallyExpanded(true)
     }
 }
 

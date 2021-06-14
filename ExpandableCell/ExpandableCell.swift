@@ -44,6 +44,10 @@ open class ExpandableCell: UITableViewCell {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
+        guard self._arrowImageView != nil else {
+            return
+        }
+        
         let width = self.bounds.width
         let height = self.bounds.height
         self._arrowImageView.frame = CGRect(x: width - self._rightMargin, y: (height - 11)/2, width: 22, height: 11)
@@ -54,7 +58,8 @@ open class ExpandableCell: UITableViewCell {
         self._isOpen = true
         self._initialExpansionAllowed = false
         
-        if self._highlightAnimation == .animated {
+        if self._highlightAnimation == .animated
+            && self._arrowImageView != nil {
             UIView.animate(withDuration: 0.3) {[weak self] in
                 self?._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
             }
@@ -68,6 +73,10 @@ open class ExpandableCell: UITableViewCell {
         }
         
         self._isOpen = true
+        
+        guard self._arrowImageView != nil else {
+            return
+        }
         self._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
     }
 
@@ -75,7 +84,8 @@ open class ExpandableCell: UITableViewCell {
     func close() {
         self._isOpen = false
         
-        if self._highlightAnimation == .animated {
+        if self._highlightAnimation == .animated
+            && self._arrowImageView != nil{
             UIView.animate(withDuration: 0.3) {[weak self] in
                 self?._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
             }
@@ -89,6 +99,11 @@ open class ExpandableCell: UITableViewCell {
         }
         
         self._isOpen = false
+        
+        guard self._arrowImageView != nil else {
+            return
+        }
+        
         self._arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
     }
     

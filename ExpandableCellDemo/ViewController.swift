@@ -37,10 +37,9 @@ class ViewController: UIViewController {
         
         tableView.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: NormalCell.ID)
         tableView.register(UINib(nibName: "ExpandedCell", bundle: nil), forCellReuseIdentifier: ExpandedCell.ID)
-//        tableView.register(UINib(nibName: "ExpandableCell", bundle: nil), forCellReuseIdentifier: ExpandableCell2.ID)
-        tableView.register(ExpandableCell2.self, forCellReuseIdentifier: ExpandableCell2.ID)
+        tableView.register(UINib(nibName: "ExpandableCell", bundle: nil), forCellReuseIdentifier: ExpandableCell2.ID)
         tableView.register(UINib(nibName: "ExpandableSelectableCell", bundle: nil), forCellReuseIdentifier: ExpandableSelectableCell2.ID)
-           tableView.register(UINib(nibName: "InitiallyExpandedExpandableCell", bundle: nil), forCellReuseIdentifier: ExpandableInitiallyExpanded.ID)
+        tableView.register(UINib(nibName: "InitiallyExpandedExpandableCell", bundle: nil), forCellReuseIdentifier: ExpandableInitiallyExpanded.ID)
     }
     
     override func viewDidAppear(_ animated: Bool) {
